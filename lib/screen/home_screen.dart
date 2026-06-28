@@ -20,20 +20,13 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    //  Load book when first screen apears
     WidgetsBinding.instance.addObserver(this);
-    
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   if (mounted) {
-    //     context.read<BookProvider>().loadBooks();
-    //   }
-    // });
   }
 
   @override
   void dispose() {
-    // PERFORMANCE
-    WidgetsBinding.instance.removeObserver(this);
+    // // PERFORMANCE
+    // WidgetsBinding.instance.removeObserver(this);
     _searchController.dispose();
     super.dispose();
   }
@@ -45,12 +38,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
     if(state == AppLifecycleState.resumed) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        setState(() {
-
-        });
+        setState(() {});
       });
-      }
     }
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -83,7 +74,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
               ),
               onChanged: (value) { // Everytime user type
                 context.read<BookProvider>().updateSearch(value);
-                setState(() {});
               },
             ),
           ),

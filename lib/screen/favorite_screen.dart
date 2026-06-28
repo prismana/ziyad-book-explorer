@@ -16,7 +16,7 @@ class FavoriteScreen extends StatelessWidget {
       body: Consumer<FavoriteProvider>(builder: (context, favProvider, child) {
         if (favProvider.favorites.isEmpty) {
           return Center(
-            child: Text("ORA ENEK SU"),
+            child: Text("Favorite is empty, tap favorite button to add"),
           );
         }
 
@@ -30,7 +30,7 @@ class FavoriteScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (_) => DetailScreen(book: book))
                 );
               }
-              );
+          );
         });
       }),
     );

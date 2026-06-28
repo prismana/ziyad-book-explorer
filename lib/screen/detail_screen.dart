@@ -27,13 +27,16 @@ class DetailScreen extends StatelessWidget {
                 favProvider.toggleFavorite(book);
 
                 // Snack Bar
-                SnackBar(
-                  content: Text(
-                    isFav ? "${book.title} removed from favorite"
-                        : "${book.title} added to favorite"
-                  ),
-                  duration: Duration(seconds: 2),
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                          isFav ? "${book.title} removed from favorite"
+                              : "${book.title} added to favorite"
+                      ),
+                      duration: Duration(seconds: 2),
+                    )
                 );
+
               });
           })
         ],

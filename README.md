@@ -1,16 +1,28 @@
 # ziyad_book_explorer
 
-A new Flutter project.
+Book explorer assesment test from Ziyadbook
+
+* Total Project Time: 9 Hour
+* Framework: Flutter
+* Architecture: MVVM
+
+## Project Structure
+lib/
+├── main.dart                   # App entry point
+├── models/
+│   └── book.dart               # Book data model
+├── services/
+│   └── api_service.dart        # API fetching logic
+├── providers/
+│   ├── book_provider.dart      # State for book list + search
+│   └── favorites_provider.dart # State for favorites (with persistence)
+├── screens/
+│   ├── home_screen.dart        # Book list + search bar
+│   ├── detail_screen.dart      # Book details page
+│   └── favorites_screen.dart   # Favorites list page
+└── widgets/
+└── book_card.dart          # Reusable book card widget
 
 ## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Run configuration:
+adding `--dart-define-from-file=.env.json`

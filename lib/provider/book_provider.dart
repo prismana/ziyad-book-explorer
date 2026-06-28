@@ -5,7 +5,8 @@ import 'package:ziyad_book_explorer/services/api_service.dart';
 enum BookStatus { initial, loading, success, error }
 
 class BookProvider extends ChangeNotifier {
-  final ApiService _apiService = ApiService();
+  final ApiService apiService;
+  BookProvider({required this.apiService});
 
   // Internal state variable (private)
   List<Book> _books = [];
@@ -31,7 +32,7 @@ class BookProvider extends ChangeNotifier {
     notifyListeners();
 
     try { // Call API service
-      _books = await _apiService.fetchBooks();
+      _books = await apiService.fetchBooks();
       _status = BookStatus.success;
     } catch(e) {
       _errorMessage = e.toString();
