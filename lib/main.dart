@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ziyad_book_explorer/provider/book_provider.dart';
+import 'package:ziyad_book_explorer/provider/favorite_provider.dart';
 import 'package:ziyad_book_explorer/screen/home_screen.dart';
 
 void main() {
@@ -14,14 +15,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => BookProvider()),
-
+        ChangeNotifierProvider(create: (_) => BookProvider()..loadBooks()), // call load book when provider created
+        ChangeNotifierProvider(create: (_) => FavoriteProvider())
       ],
       child: MaterialApp(
         title: "Ziyad Book Explorer",
-        home: HomeScreen(
-
-        ),
+        home: HomeScreen(),
       ),
     );
   }

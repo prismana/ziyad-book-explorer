@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:ziyad_book_explorer/models/book.dart';
 import 'package:ziyad_book_explorer/provider/book_provider.dart';
 import 'package:ziyad_book_explorer/screen/detail_screen.dart';
+import 'package:ziyad_book_explorer/screen/favorite_screen.dart';
 import 'package:ziyad_book_explorer/widget/book_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,19 +15,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
+  final TextEditingController _searchController = TextEditingController();
   
   @override
   void initState() {
     super.initState();
     //  Load book when first screen apears
     WidgetsBinding.instance.addObserver(this);
-    Future.microtask(() => context.read<BookProvider>().loadBooks());
+    
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   if (mounted) {
+    //     context.read<BookProvider>().loadBooks();
+    //   }
+    // });
   }
 
   @override
   void dispose() {
     // PERFORMANCE
     WidgetsBinding.instance.removeObserver(this);
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -50,25 +58,37 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       appBar: AppBar(
         title: Text("Book Explorer"),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.favorite))
+          IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => FavoriteScreen()));
+              },
+              icon: Icon(Icons.favorite)
+          )
         ],
       ),
       body: Column(
         children: [
+          // Search Bar
           Padding(
             padding: EdgeInsets.all(12),
             child: TextField(
+              controller: _searchController,
               decoration: InputDecoration(
                 hintText: 'Search books...',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12)
                 ),
                 filled: true,
-                fillColor: Colors.green
+                fillColor: Colors.grey[100]
               ),
+              onChanged: (value) { // Everytime user type
+                context.read<BookProvider>().updateSearch(value);
+                setState(() {});
+              },
             ),
-
           ),
+
+          // Main Content: Book List
           Expanded(
             child: Consumer<BookProvider>(builder: (context, provider, child) {
               // Loading Spiner

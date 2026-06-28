@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ziyad_book_explorer/provider/favorite_provider.dart';
 import '../models/book.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -13,6 +15,27 @@ class DetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(book.title),
         actions: [
+          // Consumer watches FavoritesProvider to update the icon reactively
+          Consumer<FavoriteProvider>(builder: (context, favProvider, _) {
+            final isFav = favProvider.isFavorite(book);
+            return IconButton(
+              icon: Icon(
+                isFav ? Icons.favorite : Icons.favorite_border,
+                color: isFav ? Colors.red : null,
+              ),
+              onPressed: () {
+                favProvider.toggleFavorite(book);
+
+                // Snack Bar
+                SnackBar(
+                  content: Text(
+                    isFav ? "${book.title} removed from favorite"
+                        : "${book.title} added to favorite"
+                  ),
+                  duration: Duration(seconds: 2),
+                );
+              });
+          })
         ],
         
       ),

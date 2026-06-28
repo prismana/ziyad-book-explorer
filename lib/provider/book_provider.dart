@@ -18,7 +18,6 @@ class BookProvider extends ChangeNotifier {
   BookStatus get status => _status;
   String get errorMessage => _errorMessage;
 
-
   // Filter book based on search query
   List<Book> get filteredBooks {
     if (_searchQuery.isEmpty) return _books;
@@ -39,6 +38,11 @@ class BookProvider extends ChangeNotifier {
       _status = BookStatus.error;
     }
 
+    notifyListeners();
+  }
+
+  void updateSearch(String query) {
+    _searchQuery = query;
     notifyListeners();
   }
 
